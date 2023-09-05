@@ -15,6 +15,7 @@ namespace wdwadadawdawd.Service
         {
             _dbContext = dbContext;
         }
+
         public async Task<List<GetConsultaDTO>> GetConsultaByData(DateTime date)
         {
             var consultas = await _dbContext.Consultas
@@ -32,6 +33,7 @@ namespace wdwadadawdawd.Service
 
             return consultas;
         }
+
         public async Task<Consulta> CreateConsulta(AgendarConsultaDTO agendarConsultaDTO)
         {
             var medico = await _dbContext.Medicos.FindAsync(agendarConsultaDTO.MedicoId);

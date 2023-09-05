@@ -70,10 +70,6 @@ namespace ConsultorioAPI.Service
             return "Endereço atualizado com sucesso";
         }
 
-        
-
-
-        
     }
 
 }

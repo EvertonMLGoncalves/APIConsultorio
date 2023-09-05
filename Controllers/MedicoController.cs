@@ -83,6 +83,7 @@ namespace ConsultorioAPI.Controllers
                 return BadRequest($"Erro ao atualizar o medico:\n {ex.Message}");
             }
         }
+
         [HttpPatch("/medicos/{id}")]
         public async Task<ActionResult<string>> AtualizarEspecialidadeMedicoPATCH([FromBody] AtualizarEspecialidadePATCH especialidade, int id)
         {

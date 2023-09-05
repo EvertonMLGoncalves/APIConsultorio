@@ -22,6 +22,7 @@ namespace ConsultorioAPI.Controllers
             if (consultas == null || !consultas.Any()) return NotFound("Paciente não encontrado");  
             return Ok(consultas);
         }
+
         [HttpGet("/pacientes/idade_maior_que/{idade}")]
         public async Task<ActionResult<IEnumerable<Paciente>>> ListarPacientesPorIdade(int idade)
         {
@@ -30,6 +31,7 @@ namespace ConsultorioAPI.Controllers
             return Ok(pacientes);
 
         }
+
         [HttpPost("/pacientes")]
         public async Task<ActionResult<string>> CreatePaciente(CreatePacienteDTO create)
         {
@@ -37,8 +39,40 @@ namespace ConsultorioAPI.Controllers
             return Ok(response);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePaciente([FromBody] UpdatePacienteDTO updatePaciente, int id)
+        {
+            try
+            {
+                var result = await _pacienteService.UpdatePaciente(updatePaciente, id);
 
+                if (result == null) return NotFound("Paciente não encontrado");
+                if (result == "Erro ao atualizar paciente") return BadRequest("Erro ao atualizar paciente");
 
+                return Ok("Paciente atualizado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao atualizar paciente: {ex.Message}");
+            }
+        }
 
+        [HttpPatch("{id}/endereco")]
+        public async Task<IActionResult> AtualizarEnderecoPATCH([FromBody] AtualizarEnderecoPATCH endereco, int id)
+        {
+            try
+            {
+                var result = await _pacienteService.AtualizarEndereçoPATCH(endereco, id);
+
+                if (result == null) return NotFound("Paciente não encontrado");
+                if (result == "Erro ao atualizar endereço") return BadRequest("Erro ao atualizar endereço");
+
+                return Ok("Endereço atualizado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao atualizar endereço: {ex.Message}");
+            }
+        }
     }
 }

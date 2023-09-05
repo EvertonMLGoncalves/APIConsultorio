@@ -15,6 +15,7 @@ namespace ConsultorioAPI.Service
         {
             _dataContext = dataContext;
         }
+
         public async Task<IEnumerable<ConsultaMedicoDTO>> ListarConsultarPorMedico(int id)
         {
             var consultas = await _dataContext.Consultas
@@ -79,11 +80,6 @@ namespace ConsultorioAPI.Service
             return "Especialidade atualizada com sucesso";
 
         }
-
-        
-
-        
-
-        
+               
     }
 }
