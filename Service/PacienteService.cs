@@ -16,7 +16,6 @@ namespace ConsultorioAPI.Service
         public async Task<IEnumerable<ConsultaPacienteDTO>> ListarConsultasPoPaciente(int id)
         {
             var consultas = await _dbContext.Consultas 
-                .Include(c => c.PacienteId) 
                 .Where(c => c.PacienteId == id)
                 .Select(c => new ConsultaPacienteDTO
                 {
@@ -33,7 +32,7 @@ namespace ConsultorioAPI.Service
         { 
          var ano = DateTime.Now.Year;
            var pacientes = await _dbContext.Pacientes
-                .Where(p => (ano - p.DataNascimento.Year) >= 60)
+                .Where(p => (ano - p.DataNascimento.Year) >= idade)
                 .ToListAsync();
             return pacientes;
         }
@@ -46,7 +45,8 @@ namespace ConsultorioAPI.Service
                 CPF = create.CPF, 
                 Endereco = create.Endereco, 
                 Sexo = create.Sexo, 
-                Telefone = create.Telefone,
+                Telefone = create.Telefone, 
+                Email = create.Email,
             }; 
             _dbContext.Add(pacienteModel); 
             await _dbContext.SaveChangesAsync();

@@ -18,7 +18,6 @@ namespace ConsultorioAPI.Service
         public async Task<IEnumerable<ConsultaMedicoDTO>> ListarConsultarPorMedico(int id)
         {
             var consultas = await _dataContext.Consultas
-                .Include(c => c.MedicoId)
                 .Where(c => c.MedicoId == id)
                 .Select(a => new ConsultaMedicoDTO
                 {
@@ -50,8 +49,11 @@ namespace ConsultorioAPI.Service
                 Telefone = createMedico.Telefone,
                 Endereço = createMedico.Endereço,
                 DataNascimento = createMedico.DataNascimento,
-                Sexo = createMedico.Sexo,
-            };
+                Sexo = createMedico.Sexo, 
+                Email = createMedico.Email,
+            }; 
+             _dataContext.Medicos.Add(medicoModel); 
+            await _dataContext.SaveChangesAsync();
             return "Médico criado com sucesso";
         }
 

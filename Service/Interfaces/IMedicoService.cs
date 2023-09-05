@@ -8,12 +8,9 @@ namespace ConsultorioAPI.Service.Interfaces
     {
         Task<IEnumerable<ConsultaMedicoDTO>> ListarConsultarPorMedico(int id); 
          
-        Task<string> UpdateMedico(UpdateMedicoDTO update, int id);
-
         Task<IEnumerable<Medico>> ListarMedicoPorEspecialidade(string especialidade); 
-         
         Task<string> CreateMedico (CreateMedicoDTO createMedico);
-
+        Task<string> UpdateMedico(UpdateMedicoDTO update, int id);
         Task<string> AtualizarEspecialidadeMedicoPATCH(AtualizarEspecialidadePATCH especialidade, int id); 
 
     }

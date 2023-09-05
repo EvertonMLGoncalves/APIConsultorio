@@ -1,4 +1,5 @@
-﻿using ConsultorioAPI.Service.Interfaces;
+﻿using ConsultorioAPI.DTOs.MedicoDTOs;
+using ConsultorioAPI.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using wdwadadawdawd.DTOs.MedicoDTOs;
 
@@ -16,13 +17,13 @@ namespace ConsultorioAPI.Controllers
         }
 
         [HttpGet("{id}/consultas")]
-        public async Task<IActionResult> ListarConsultasPorMedico(int id)
+        public async Task<ActionResult<IEnumerable<ConsultaMedicoDTO>>> ListarConsultasPorMedico(int id)
         {
             try
             {
                 var consultas = await _medicoService.ListarConsultarPorMedico(id);
 
-                if (consultas == null)
+                if (consultas == null || !consultas.Any())
                 {
                     return NotFound("Medico nao encontrado ou nao possui consultas.");
                 }
@@ -31,7 +32,7 @@ namespace ConsultorioAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Erro ao listar consultas do medico: {ex.Message}");
+                return BadRequest($"Erro ao listar consultas do medico:\n {ex.Message}");
             }
         }
 
@@ -51,7 +52,7 @@ namespace ConsultorioAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Erro ao listar medico na especialidade: {ex.Message}");
+                return BadRequest($"Erro ao listar medico na especialidade:\n {ex.Message}");
             }
         }
 
@@ -65,7 +66,7 @@ namespace ConsultorioAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Erro ao criar medico: {ex.Message}");
+                return BadRequest($"Erro ao criar medico:\n {ex.Message}");
             }
         }
 
@@ -74,7 +75,25 @@ namespace ConsultorioAPI.Controllers
         {
             try
             {
-                var result = await _medicoService.UpdateMedico(id, update);
+                var result = await _medicoService.UpdateMedico(update, id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao atualizar o medico:\n {ex.Message}");
+            }
+        }
+        [HttpPatch("/medicos/{id}")]
+        public async Task<ActionResult<string>> AtualizarEspecialidadeMedicoPATCH([FromBody] AtualizarEspecialidadePATCH especialidade, int id)
+        {
+            try
+            {
+                var result = await _medicoService.AtualizarEspecialidadeMedicoPATCH(especialidade, id);
+                return Ok(result);
+            } 
+            catch(Exception ex)
+            {
+                return BadRequest($"Erro ao atualizar a especialidade do medico:\n {ex.Message}");
             }
         }
     }

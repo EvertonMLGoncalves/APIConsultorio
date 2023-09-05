@@ -15,8 +15,24 @@ namespace wdwadadawdawd.Service
         {
             _dbContext = dbContext;
         }
+        public async Task<List<GetConsultaDTO>> GetConsultaByData(DateTime date)
+        {
+            var consultas = await _dbContext.Consultas
+                .Where(c => c.Data.Date == date.Date)
+                .Select(c => new GetConsultaDTO
+                {
+                    Id = c.Id,
+                    Data = c.Data,
+                    Descricao = c.Descricao,
+                    Prescricao = c.Prescricao, 
+                    MedicoId = c.MedicoId, 
+                    PacienteId = c.PacienteId,
+                })
+                .ToListAsync();
 
-        public async Task<string> CreateConsulta(AgendarConsultaDTO agendarConsultaDTO)
+            return consultas;
+        }
+        public async Task<Consulta> CreateConsulta(AgendarConsultaDTO agendarConsultaDTO)
         {
             var medico = await _dbContext.Medicos.FindAsync(agendarConsultaDTO.MedicoId);
             var paciente = await _dbContext.Pacientes.FindAsync(agendarConsultaDTO.PacienteId);
@@ -38,7 +54,7 @@ namespace wdwadadawdawd.Service
 
             await _dbContext.SaveChangesAsync(); 
 
-            return "Consulta agendada com sucesso";
+            return novaConsulta;
         }
 
         public async Task DeleteConsulta(int id)
@@ -51,20 +67,6 @@ namespace wdwadadawdawd.Service
             await _dbContext.SaveChangesAsync();            
         }
 
-        public async Task<List<GetConsultaDTO>> GetConsultaByData(DateTime date)
-        {
-            var consultas = await _dbContext.Consultas
-                .Where(c => c.Data.Date == date.Date)
-                .Select(c => new GetConsultaDTO
-                {
-                    Id = c.Id,
-                    Data = c.Data,
-                    Descricao = c.Descricao,
-                    Prescricao = c.Prescricao,
-                })
-                .ToListAsync();
-
-            return consultas;
-        }
+        
     }
 }

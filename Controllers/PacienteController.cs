@@ -19,14 +19,14 @@ namespace ConsultorioAPI.Controllers
         public async Task<ActionResult<IEnumerable<ConsultaPacienteDTO>>> ListarConsultasPoPaciente(int id)
         {
             var consultas = await _pacienteService.ListarConsultasPoPaciente(id);
-            if (consultas == null) return NotFound("Paciente não encontrado");  
+            if (consultas == null || !consultas.Any()) return NotFound("Paciente não encontrado");  
             return Ok(consultas);
         }
         [HttpGet("/pacientes/idade_maior_que/{idade}")]
         public async Task<ActionResult<IEnumerable<Paciente>>> ListarPacientesPorIdade(int idade)
         {
             var pacientes = await _pacienteService.ListarPacientesPorIdade(idade);
-            if (pacientes == null) return NotFound($"Nenhum paciente tem a idade igual ou superior a {idade} anos"); 
+            if (pacientes == null || !pacientes.Any()) return NotFound($"Nenhum paciente tem a idade igual ou superior a {idade} anos"); 
             return Ok(pacientes);
 
         }

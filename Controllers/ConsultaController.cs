@@ -14,6 +14,19 @@ namespace ConsultorioAPI.Controllers
         {
             _consultaService = consultaService;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetConsultaByData([FromQuery] DateTime data)
+        {
+            try
+            {
+                var consultas = await _consultaService.GetConsultaByData(data);
+                return Ok(consultas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"erro ao listar consultas: {ex.Message}");
+            }
+        } 
 
         [HttpPost]
         public async Task<IActionResult> CreateConsulta([FromBody] AgendarConsultaDTO agendarConsultaDTO)
@@ -21,7 +34,7 @@ namespace ConsultorioAPI.Controllers
             try
             {
                 var consultaAgendada = await _consultaService.CreateConsulta(agendarConsultaDTO);
-                return CreatedAtAction("ObterConsultaPorId", new { id = consultaAgendada.Id }, consultaAgendada);
+                return CreatedAtAction("ObterConsultaPorId", new { id = consultaAgendada.Id}, consultaAgendada);
             }
             catch (Exception ex)
             {
@@ -43,18 +56,6 @@ namespace ConsultorioAPI.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetConsultaByData([FromQuery] DateTime data)
-        {
-            try
-            {
-                var consultas = _consultaService.GetConsultaByData(data);
-                return Ok(consultas);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"erro ao listar consultas: {ex.Message}");
-            }
-        }
+        
     }
 }

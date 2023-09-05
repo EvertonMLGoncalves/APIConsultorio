@@ -1,5 +1,9 @@
 using ConsultorioAPI.Data;
+using ConsultorioAPI.Service;
+using ConsultorioAPI.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using wdwadadawdawd.Service;
+using wdwadadawdawd.Service.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddScoped<IMedicoService, MedicoService>();   
+builder.Services.AddScoped<IPacienteService, PacienteService>();   
+builder.Services.AddScoped<IConsultaService, ConsultaService>();   
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
