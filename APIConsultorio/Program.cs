@@ -1,3 +1,4 @@
+using APIALiens.EmailModule;
 using ConsultorioAPI.Data;
 using ConsultorioAPI.Service;
 using ConsultorioAPI.Service.Interfaces;
@@ -19,7 +20,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 builder.Services.AddScoped<IMedicoService, MedicoService>();   
 builder.Services.AddScoped<IPacienteService, PacienteService>();   
-builder.Services.AddScoped<IConsultaService, ConsultaService>();   
+builder.Services.AddScoped<IConsultaService, ConsultaService>();
+builder.Services.AddScoped<ISmtp, Smtp>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +33,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 
 app.UseAuthorization();
 

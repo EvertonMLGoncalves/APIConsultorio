@@ -9,14 +9,15 @@ namespace wdwadadawdawd.Service
 {
     public class ConsultaService : IConsultaService
     {
-        private readonly DataContext _dbContext;
+        private readonly DataContext _dbContext; 
+
 
         public ConsultaService(DataContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<List<GetConsultaDTO>> GetConsultaByData(DateTime date)
+        public async Task<IEnumerable<GetConsultaDTO>> GetConsultaByDataAsync(DateTime date)
         {
             var consultas = await _dbContext.Consultas
                 .Where(c => c.Data.Date == date.Date)
@@ -34,7 +35,7 @@ namespace wdwadadawdawd.Service
             return consultas;
         }
 
-        public async Task<Consulta> CreateConsulta(AgendarConsultaDTO agendarConsultaDTO)
+        public async Task<Consulta> CreateConsultaAsync(AgendarConsultaDTO agendarConsultaDTO)
         {
             var medico = await _dbContext.Medicos.FindAsync(agendarConsultaDTO.MedicoId);
             var paciente = await _dbContext.Pacientes.FindAsync(agendarConsultaDTO.PacienteId);
@@ -59,14 +60,15 @@ namespace wdwadadawdawd.Service
             return novaConsulta;
         }
 
-        public async Task DeleteConsulta(int id)
+        public async Task<string> DeleteConsultaAsync(int id)
         {
             var consulta = await _dbContext.Consultas.FindAsync(id);
 
-            if (consulta == null) throw new Exception("Consulta nao encontrada.");
+            if (consulta == null) return null;
 
             _dbContext.Consultas.Remove(consulta);
-            await _dbContext.SaveChangesAsync();            
+            await _dbContext.SaveChangesAsync();
+            return "Consulta deletada com sucesso";
         }
 
         

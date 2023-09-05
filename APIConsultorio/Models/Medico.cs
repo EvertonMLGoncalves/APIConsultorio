@@ -8,7 +8,7 @@
         public string Email { get; set; } = string.Empty;
         public string Especialidade { get; set; } = string.Empty; 
         public string Telefone { get; set; } = string.Empty; 
-        public string Endereço { get; set; } = string.Empty; 
+        public string Endereco { get; set; } = string.Empty; 
         public DateTime DataNascimento { get; set; }
         public string Sexo { get; set; } = string.Empty;
     }

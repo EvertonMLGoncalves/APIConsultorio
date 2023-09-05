@@ -21,7 +21,7 @@ namespace wdwadadawdawd.Migrations
                     CRM = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Especialidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Endereço = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Endereco = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Sexo = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ConsultorioAPI.Models;
+using Microsoft.AspNetCore.Mvc;
+using wdwadadawdawd.DTOs.ConsultaDTOs;
 using wdwadadawdawd.DTOs.PacienteDTOs;
 using wdwadadawdawd.Service.Interfaces;
 
@@ -15,11 +17,11 @@ namespace ConsultorioAPI.Controllers
             _consultaService = consultaService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetConsultaByData([FromQuery] DateTime data)
+        public async Task<ActionResult<IEnumerable<GetConsultaDTO>>> GetConsultaByDataAsync(DateTime date)
         {
             try
             {
-                var consultas = await _consultaService.GetConsultaByData(data);
+                var consultas = await _consultaService.GetConsultaByDataAsync(date);
                 return Ok(consultas);
             }
             catch (Exception ex)
@@ -29,12 +31,12 @@ namespace ConsultorioAPI.Controllers
         } 
 
         [HttpPost]
-        public async Task<IActionResult> CreateConsulta([FromBody] AgendarConsultaDTO agendarConsultaDTO)
+        public async Task<ActionResult<Consulta>> CreateConsultaAsync(AgendarConsultaDTO agendarConsultaDTO)
         {
             try
             {
-                var consultaAgendada = await _consultaService.CreateConsulta(agendarConsultaDTO);
-                return CreatedAtAction("ObterConsultaPorId", new { id = consultaAgendada.Id}, consultaAgendada);
+                var consultaAgendada = await _consultaService.CreateConsultaAsync(agendarConsultaDTO);
+                return Ok("consulta criada");
             }
             catch (Exception ex)
             {
@@ -43,12 +45,13 @@ namespace ConsultorioAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteConsulta(int id)
+        public async Task<ActionResult<string>> DeleteConsultaAsync(int id)
         {
             try
             {
-                await _consultaService.DeleteConsulta(id);
-                return NoContent();
+                var response = await _consultaService.DeleteConsultaAsync(id);
+                if (response == null) return BadRequest("Consulta não encontrada");
+                return Ok(response);
             }
             catch (Exception ex)
             {
