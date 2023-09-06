@@ -134,7 +134,8 @@ namespace ConsultorioAPI.Service
                 .ToListAsync();
 
             return pacientes;
-        }
+        } 
+
 
 
     }

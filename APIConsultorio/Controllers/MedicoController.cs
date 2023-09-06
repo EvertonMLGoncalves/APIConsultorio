@@ -16,7 +16,19 @@ namespace ConsultorioAPI.Controllers
         {
             _medicoService = medicicoService;
         }
-
+        [HttpGet("/medicos")]
+        public async Task<ActionResult<IEnumerable<MedicoDTO>>> ListarTodosMedicosAsync()
+        {
+            try
+            {
+                var medicos = await _medicoService.ListarTodosMedicosAsync();
+                return Ok(medicos);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar médicos: {ex.Message}");
+            }
+        }
         [HttpGet("{id}/consultas")]
         public async Task<ActionResult<IEnumerable<ConsultaMedicoDTO>>> ListarConsultasPorMedico(int id)
         {
@@ -37,7 +49,7 @@ namespace ConsultorioAPI.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("/medicos/especialidade/{especialidade}")]
         public async Task<ActionResult<IEnumerable<Medico>>> ListarMedicoPorEspecialidade(string especialidade)
         {
             try
@@ -57,6 +69,20 @@ namespace ConsultorioAPI.Controllers
             }
         }
 
+        [HttpGet("medicos/disponiveis")]
+        public async Task<ActionResult<IEnumerable<Medico>>> ListarMedicoDisponivelPorEspecialidadeEData([FromQuery] DateTime data, [FromQuery] string especialidade)
+        {
+            try
+            {
+                var medicos = await _medicoService.ListarMedicoDisponivelPorEspecialidadeEData(data, especialidade);
+                if (!medicos.Any()) return BadRequest("Nenhum médico disponível para essa data com essa especialidade");
+                return Ok(medicos);
+            } 
+            catch(Exception ex)
+            {
+                return BadRequest($"Erro ao buscar médicos por data e especialidade:\n {ex.Message}");
+            }
+        }
         [HttpPost]
         public async Task<ActionResult<string>> CreateMedicoAsync(CreateMedicoDTO createMedico)
         {
@@ -99,19 +125,7 @@ namespace ConsultorioAPI.Controllers
             }
         }
 
-        [HttpGet("/medicos")]
-        public async Task<ActionResult> ListarTodosMedicosAsync()
-        {
-            try
-            {
-                var medicos = await _medicoService.ListarTodosMedicosAsync();
-                return Ok(medicos);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Erro ao listar médicos: {ex.Message}");
-            }
-        }
+        
     }
 
 }

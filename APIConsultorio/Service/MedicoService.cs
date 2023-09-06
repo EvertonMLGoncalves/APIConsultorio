@@ -5,6 +5,7 @@ using ConsultorioAPI.DTOs.MedicoDTOs;
 using ConsultorioAPI.Models;
 using ConsultorioAPI.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 using wdwadadawdawd.DTOs.MedicoDTOs;
 
 namespace ConsultorioAPI.Service
@@ -19,7 +20,24 @@ namespace ConsultorioAPI.Service
             _dataContext = dataContext;
             _smtp = smtp;
         }
+        public async Task<IEnumerable<MedicoDTO>> ListarTodosMedicosAsync()
+        {
+            var medicos = await _dataContext.Medicos
+            .Select(m => new MedicoDTO
+            {
+                Id = m.Id,
+                Nome = m.Nome,
+                CRM = m.CRM,
+                Especialidade = m.Especialidade,
+                Telefone = m.Telefone,
+                Endereco = m.Endereco,
+                DataNascimento = m.DataNascimento,
+                Sexo = m.Sexo
+            })
+            .ToListAsync();
 
+            return medicos;
+        }
         public async Task<IEnumerable<ConsultaMedicoDTO>> ListarConsultarPorMedicoAsync(int id)
         {
             var consultas = await _dataContext.Consultas
@@ -124,24 +142,24 @@ namespace ConsultorioAPI.Service
 
         }
 
-        public async Task<List<MedicoDTO>> ListarTodosMedicosAsync()
+        public async Task<IEnumerable<Medico>> ListarMedicoDisponivelPorEspecialidadeEData(DateTime data, string especialidade)
         {
-            var medicos = await _dataContext.Medicos
-            .Select(m => new MedicoDTO
-            {
-                Id = m.Id,
-                Nome = m.Nome,
-                CRM = m.CRM,
-                Especialidade = m.Especialidade,
-                Telefone = m.Telefone,  
-                Endereco = m.Endereco,
-                DataNascimento = m.DataNascimento,
-                Sexo = m.Sexo
-            })
-            .ToListAsync();
+            var medicos = await _dataContext.Consultas
+                .Include(c => c.Medico)
+                .Where(c => c.Data != data && c.Medico.Especialidade.ToLower() == especialidade.ToLower())
+                .Select(c => c.Medico) 
+                .Distinct()
+                .ToListAsync();
+            var medicosComConsulta = await _dataContext.Consultas
+                .Select(c => c.MedicoId)
+                .Distinct()
+                .ToListAsync();
+            var medicosDisponiveis = await _dataContext.Medicos
+                .Where(m => !medicosComConsulta.Contains(m.Id))
+                .ToListAsync(); 
 
-            return medicos;
+            return medicos.Concat(medicosDisponiveis);
+
         }
-
     }
 }

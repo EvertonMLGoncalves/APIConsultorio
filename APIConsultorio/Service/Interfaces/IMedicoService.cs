@@ -13,6 +13,7 @@ namespace ConsultorioAPI.Service.Interfaces
         Task<string> CreateMedicoAsync(CreateMedicoDTO createMedico);
         Task<string> UpdateMedicoAsync(UpdateMedicoDTO update, int id);
         Task<string> AtualizarEspecialidadeMedicoPATCHAsync(AtualizarEspecialidadePATCH especialidade, int id);
-        Task<List<MedicoDTO>> ListarTodosMedicosAsync();
+        Task<IEnumerable<MedicoDTO>> ListarTodosMedicosAsync();
+        Task<IEnumerable<Medico>> ListarMedicoDisponivelPorEspecialidadeEData(DateTime data, string especialidade);
     }
 }
