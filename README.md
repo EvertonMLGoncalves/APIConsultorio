@@ -31,7 +31,7 @@ git clone https://github.com/EvertonMLGoncalves/APIConsultorio
 3. ## Após clonar o repositório, abra o projeto "AliensAPI" e localize o arquivo chamado appsettings.json. Após abrí-lo, mude o primeiro valor de "server" da string "DefaultConnect" colocando o seu banco de dados: 
 ```json
 "ConnectionStrings": {
-    "DefaultConnection": "server=SEU-SERVIDOR-SQL-SERVER;database=alienDb;trusted_connection=true;TrustServerCertificate=True"
+    "DefaultConnection": "server=SEU-SERVIDOR-SQL-SERVER;database=APIConsultorio;trusted_connection=true;TrustServerCertificate=True"
   },
 ``` 
 #### Dica: o nome do servidor pode ser obtido abrindo o SQL Server Management Studio (SSMS) no seu computador. Caso não possua, é recomendável a sua instalação 
