@@ -28,7 +28,7 @@ git init
 ```bash 
 git clone https://github.com/EvertonMLGoncalves/APIConsultorio
 ```
-3. ## Após clonar o repositório, abra o projeto "AliensAPI" e localize o arquivo chamado appsettings.json. Após abrí-lo, mude o primeiro valor de "server" da string "DefaultConnect" colocando o seu banco de dados: 
+3. ## Após clonar o repositório, abra o projeto "ConsultorioAPI" e localize o arquivo chamado appsettings.json. Após abrí-lo, mude o primeiro valor de "server" da string "DefaultConnect" colocando o seu banco de dados: 
 ```json
 "ConnectionStrings": {
     "DefaultConnection": "server=SEU-SERVIDOR-SQL-SERVER;database=APIConsultorio;trusted_connection=true;TrustServerCertificate=True"
