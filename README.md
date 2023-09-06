@@ -13,7 +13,7 @@
  ## Sobre o Projeto 📖
  #### Esse projeto refere à segunda parte da atividade em duplas de construção de API's REST com o ASP .NET solicita pelo nosso instrutor do programa +Devs2Blu. Nesta atividade, foi construída uma API para o controle de consultas, médicos e pacientes. As entidade Médico e Paciente possuem uma relação N - N. 
    
-  ## Pré-requisitos ✏️: 
+  ## Pré-requisitos ✏️ 
 ### Para utilizar nosso projeto, você deverá ter os seguintes programas instalados em seu computador: 
  1. ### Visual Studio (de preferência) ou Visual Studio Code;  
 2.  ### SQL Server 
@@ -86,7 +86,7 @@ https://localhost:7043/api/Email
 ## Agradecimentos 👍 
 #### Agradecemos a todos os responsáveis pelo programa +Devs2Blu, em especial à Blusoft e a Proway.  
  
-## Lincesa 🔓
+## Lincença 🔓
 #### Licensa MIT
 
  
