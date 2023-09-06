@@ -156,6 +156,21 @@ namespace ConsultorioAPI.Service
             return consultasFuturas;
         }
 
+        public async Task<string> DeletarPaciente(int pacienteId)
+        {
+            var paciente = await _dbContext.Pacientes.FirstOrDefaultAsync(p => p.Id == pacienteId);
+
+            if (paciente == null)
+            {
+                return "Paciente não encontrado";
+            }
+
+            _dbContext.Pacientes.Remove(paciente);
+            await _dbContext.SaveChangesAsync();
+
+            return "Paciente excluído com sucesso";
+        }
+
     }
 
 }

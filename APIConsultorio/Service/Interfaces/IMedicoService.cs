@@ -15,5 +15,7 @@ namespace ConsultorioAPI.Service.Interfaces
         Task<string> AtualizarEspecialidadeMedicoPATCHAsync(AtualizarEspecialidadePATCH especialidade, int id);
         Task<IEnumerable<MedicoDTO>> ListarTodosMedicosAsync();
         Task<IEnumerable<Medico>> ListarMedicoDisponivelPorEspecialidadeEData(DateTime data, string especialidade);
+        Task<string> DeletarMedico(int id);
+
     }
 }

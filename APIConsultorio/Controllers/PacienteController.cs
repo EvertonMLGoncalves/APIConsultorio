@@ -109,5 +109,25 @@ namespace ConsultorioAPI.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletarPaciente(int id)
+        {
+            try
+            {
+                var response = await _pacienteService.DeletarPaciente(id);
+
+                if (response == "Paciente não encontrado")
+                {
+                    return NotFound("Paciente não encontrado");
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao excluir paciente: {ex.Message}");
+            }
+        }
+
     }
 }

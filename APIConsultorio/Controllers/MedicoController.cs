@@ -125,7 +125,26 @@ namespace ConsultorioAPI.Controllers
             }
         }
 
-        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletarMedico(int id)
+        {
+            try
+            {
+                var response = await _medicoService.DeletarMedico(id);
+
+                if (response == "Medico não encontrado")
+                {
+                    return NotFound("Medico não encontrado");
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao excluir medico: {ex.Message}");
+            }
+        }
+
     }
 
 }

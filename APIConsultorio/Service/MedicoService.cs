@@ -156,10 +156,24 @@ namespace ConsultorioAPI.Service
                 .ToListAsync();
             var medicosDisponiveis = await _dataContext.Medicos
                 .Where(m => !medicosComConsulta.Contains(m.Id))
-                .ToListAsync(); 
+                .ToListAsync();
 
             return medicos.Concat(medicosDisponiveis);
+        }
 
+        public async Task<string> DeletarMedico(int id)
+        {
+            var medico = await _dataContext.Medicos.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (medico == null)
+            {
+                return "Medico não encontrado";
+            }
+
+            _dataContext.Medicos.Remove(medico);
+            await _dataContext.SaveChangesAsync();
+
+            return "Medico excluído com sucesso";
         }
     }
 }
