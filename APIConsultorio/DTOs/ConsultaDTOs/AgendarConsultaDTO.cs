@@ -1,4 +1,4 @@
-﻿namespace wdwadadawdawd.DTOs.PacienteDTOs
+namespace wdwadadawdawd.DTOs.PacienteDTOs
 {
     public class AgendarConsultaDTO
     {

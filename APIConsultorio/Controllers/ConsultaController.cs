@@ -1,4 +1,4 @@
-﻿using ConsultorioAPI.Models;
+using ConsultorioAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using wdwadadawdawd.DTOs.ConsultaDTOs;
 using wdwadadawdawd.DTOs.PacienteDTOs;

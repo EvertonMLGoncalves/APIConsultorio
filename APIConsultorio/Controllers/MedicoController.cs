@@ -1,4 +1,4 @@
-﻿using ConsultorioAPI.DTOs.MedicoDTOs;
+using ConsultorioAPI.DTOs.MedicoDTOs;
 using ConsultorioAPI.Models;
 using ConsultorioAPI.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;

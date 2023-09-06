@@ -1,4 +1,4 @@
-﻿using ConsultorioAPI.Models;
+using ConsultorioAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsultorioAPI.Data

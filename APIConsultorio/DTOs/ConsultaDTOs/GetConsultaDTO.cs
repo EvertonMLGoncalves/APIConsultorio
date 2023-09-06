@@ -1,4 +1,4 @@
-﻿namespace wdwadadawdawd.DTOs.ConsultaDTOs
+namespace wdwadadawdawd.DTOs.ConsultaDTOs
 {
     public class GetConsultaDTO
     {

@@ -1,4 +1,4 @@
-﻿namespace wdwadadawdawd.DTOs.MedicoDTOs
+namespace wdwadadawdawd.DTOs.MedicoDTOs
 {
     public class AtualizarEspecialidadePATCH
     { 
