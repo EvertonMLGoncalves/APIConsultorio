@@ -14,6 +14,7 @@ namespace ConsultorioAPI.Service
         Task<string> UpdatePacienteAsync(UpdatePacienteDTO update, int id); 
         Task<string> AtualizarEnderecoPATCHAsync(AtualizarEnderecoPATCH endereco, int id);
         Task<List<PacienteDTO>> ListarTodosPacientesAsync();
-        
+        Task<IEnumerable<ConsultaDTO>> ListarConsultasFuturas(int pacienteId);
+
     }
 }

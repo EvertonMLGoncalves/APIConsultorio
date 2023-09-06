@@ -134,9 +134,27 @@ namespace ConsultorioAPI.Service
                 .ToListAsync();
 
             return pacientes;
-        } 
+        }
 
+        public async Task<IEnumerable<ConsultaDTO>> ListarConsultasFuturas(int pacienteId)
+        {
+            var dataAtual = DateTime.Now;
 
+            var consultasFuturas = await _dbContext.Consultas
+                .Where(c => c.PacienteId == pacienteId && c.Data > dataAtual)
+                .OrderBy(c => c.Data)
+                .Select(c => new ConsultaDTO
+                {
+                    Id = c.Id,
+                    DataConsulta = c.Data,
+                    Descricao = c.Descricao,
+                    Prescricao = c.Prescricao,
+                    MedicoId = c.MedicoId,
+                })
+                .ToListAsync();
+
+            return consultasFuturas;
+        }
 
     }
 

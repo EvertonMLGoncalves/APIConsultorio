@@ -16,6 +16,7 @@ namespace ConsultorioAPI.Controllers
         {
             _consultaService = consultaService;
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetConsultaDTO>>> GetConsultaByDataAsync(DateTime date)
         {
@@ -59,6 +60,24 @@ namespace ConsultorioAPI.Controllers
             }
         }
 
-        
+        [HttpGet("todas")]
+        public async Task<IActionResult> ListarTodasConsultas()
+        {
+            try
+            {
+                var consultas = await _consultaService.ListarTodasConsultas();
+
+                if (consultas == null || !consultas.Any())
+                {
+                    return NotFound("Nao foram encontradas consultas.");
+                }
+
+                return Ok(consultas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar todas as consultas: {ex.Message}");
+            }
+        }
     }
 }

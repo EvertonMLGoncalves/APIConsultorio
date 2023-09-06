@@ -9,5 +9,6 @@ namespace wdwadadawdawd.Service.Interfaces
         Task<IEnumerable<GetConsultaDTO>> GetConsultaByDataAsync(DateTime date);
         Task<Consulta> CreateConsultaAsync(AgendarConsultaDTO agendarConsultaDTO);
         Task<string> DeleteConsultaAsync(int id);
+        Task<IEnumerable<ConsultaDTO>> ListarTodasConsultas();
     }
 }

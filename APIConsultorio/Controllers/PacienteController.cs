@@ -5,7 +5,7 @@ using wdwadadawdawd.DTOs.PacienteDTOs;
 
 namespace ConsultorioAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("    [controller]")]
     [ApiController]
     public class PacienteController : ControllerBase
     {
@@ -15,6 +15,7 @@ namespace ConsultorioAPI.Controllers
         {
             _pacienteService = pacienteService;
         }
+
         [HttpGet("/paciente/{id}/consultas")]
         public async Task<ActionResult<IEnumerable<ConsultaPacienteDTO>>> ListarConsultasPoPaciente(int id)
         {
@@ -86,6 +87,25 @@ namespace ConsultorioAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"Erro ao listar todos os pacientes: {ex.Message}");
+            }
+        }
+
+        [HttpGet("{id}/consultas/futuras")]
+        public async Task<IActionResult> ListarConsultasFuturas(int id)
+        {
+            try
+            {
+                var consultasFuturas = await _pacienteService.ListarConsultasFuturas(id);
+                if (consultasFuturas == null || !consultasFuturas.Any())
+                {
+                    return NotFound("paciente nao tem consultas futuras.");
+                }
+
+                return Ok(consultasFuturas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar consultas futuras: {ex.Message}");
             }
         }
 

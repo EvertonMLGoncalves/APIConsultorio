@@ -71,6 +71,19 @@ namespace wdwadadawdawd.Service
             return "Consulta deletada com sucesso";
         }
 
-        
+        public async Task<IEnumerable<ConsultaDTO>> ListarTodasConsultas()
+        {
+            var consultas = await _dbContext.Consultas
+                .Select(c => new ConsultaDTO
+                {
+                    Id = c.Id,
+                    DataConsulta = c.Data,
+                    Descricao = c.Descricao,
+                    Prescricao = c.Prescricao,
+                })
+                .ToListAsync();
+
+            return consultas;
+        }
     }
 }
