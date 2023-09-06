@@ -87,6 +87,6 @@ https://localhost:7043/api/Email
 #### Agradecemos a todos os responsáveis pelo programa +Devs2Blu, em especial à Blusoft e a Proway.  
  
 ## Lincença 🔓
-#### Licensa MIT
+#### Licença MIT
 
  
