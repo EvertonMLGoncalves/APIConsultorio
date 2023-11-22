@@ -13,7 +13,7 @@
  ## Sobre o Projeto 📖
  #### Esse projeto refere à segunda parte da atividade em duplas de construção de API's REST com o ASP .NET solicita pelo nosso instrutor do programa +Devs2Blu. Nesta atividade, foi construída uma API para o controle de consultas, médicos e pacientes. As entidade Médico e Paciente possuem uma relação N - N. 
    
-  ## Pré-requisitos ✏️: 
+  ## Pré-requisitos ✏️ 
 ### Para utilizar nosso projeto, você deverá ter os seguintes programas instalados em seu computador: 
  1. ### Visual Studio (de preferência) ou Visual Studio Code;  
 2.  ### SQL Server 
@@ -28,10 +28,10 @@ git init
 ```bash 
 git clone https://github.com/EvertonMLGoncalves/APIConsultorio
 ```
-3. ## Após clonar o repositório, abra o projeto "AliensAPI" e localize o arquivo chamado appsettings.json. Após abrí-lo, mude o primeiro valor de "server" da string "DefaultConnect" colocando o seu banco de dados: 
+3. ## Após clonar o repositório, abra o projeto "ConsultorioAPI" e localize o arquivo chamado appsettings.json. Após abrí-lo, mude o primeiro valor de "server" da string "DefaultConnect" colocando o seu banco de dados: 
 ```json
 "ConnectionStrings": {
-    "DefaultConnection": "server=SEU-SERVIDOR-SQL-SERVER;database=alienDb;trusted_connection=true;TrustServerCertificate=True"
+    "DefaultConnection": "server=SEU-SERVIDOR-SQL-SERVER;database=APIConsultorio;trusted_connection=true;TrustServerCertificate=True"
   },
 ``` 
 #### Dica: o nome do servidor pode ser obtido abrindo o SQL Server Management Studio (SSMS) no seu computador. Caso não possua, é recomendável a sua instalação 
@@ -86,7 +86,7 @@ https://localhost:7043/api/Email
 ## Agradecimentos 👍 
 #### Agradecemos a todos os responsáveis pelo programa +Devs2Blu, em especial à Blusoft e a Proway.  
  
-## Lincesa 🔓
-#### Licensa MIT
+## Lincença 🔓
+#### Licença MIT
 
  
