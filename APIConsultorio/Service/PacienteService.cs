@@ -146,7 +146,7 @@ namespace ConsultorioAPI.Service
                 .Select(c => new ConsultaDTO
                 {
                     Id = c.Id,
-                    DataConsulta = c.Data,
+                    DataConsulta = c.Data.Date,
                     Descricao = c.Descricao,
                     Prescricao = c.Prescricao,
                     MedicoId = c.MedicoId,

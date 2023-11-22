@@ -32,7 +32,38 @@ namespace ConsultorioAPI.Controllers
             return Ok(pacientes);
 
         }
+        [HttpGet]
+        public async Task<ActionResult> ListarTodosPacientesAsync()
+        {
+            try
+            {
+                var pacientes = await _pacienteService.ListarTodosPacientesAsync();
+                return Ok(pacientes);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar todos os pacientes: {ex.Message}");
+            }
+        }
 
+        [HttpGet("{id}/consultas/futuras")]
+        public async Task<IActionResult> ListarConsultasFuturas(int id)
+        {
+            try
+            {
+                var consultasFuturas = await _pacienteService.ListarConsultasFuturas(id);
+                if (consultasFuturas == null || !consultasFuturas.Any())
+                {
+                    return NotFound("paciente nao tem consultas futuras.");
+                }
+
+                return Ok(consultasFuturas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar consultas futuras: {ex.Message}");
+            }
+        }
         [HttpPost("/pacientes")]
         public async Task<ActionResult<string>> CreatePaciente(CreatePacienteDTO create)
         {
@@ -76,38 +107,7 @@ namespace ConsultorioAPI.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<ActionResult> ListarTodosPacientesAsync()
-        {
-            try
-            {
-                var pacientes = await _pacienteService.ListarTodosPacientesAsync();
-                return Ok(pacientes);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Erro ao listar todos os pacientes: {ex.Message}");
-            }
-        }
-
-        [HttpGet("{id}/consultas/futuras")]
-        public async Task<IActionResult> ListarConsultasFuturas(int id)
-        {
-            try
-            {
-                var consultasFuturas = await _pacienteService.ListarConsultasFuturas(id);
-                if (consultasFuturas == null || !consultasFuturas.Any())
-                {
-                    return NotFound("paciente nao tem consultas futuras.");
-                }
-
-                return Ok(consultasFuturas);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Erro ao listar consultas futuras: {ex.Message}");
-            }
-        }
+        
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletarPaciente(int id)

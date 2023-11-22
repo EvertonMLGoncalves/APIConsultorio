@@ -29,8 +29,26 @@ namespace ConsultorioAPI.Controllers
             {
                 return BadRequest($"erro ao listar consultas: {ex.Message}");
             }
-        } 
+        }
+        [HttpGet("todas")]
+        public async Task<IActionResult> ListarTodasConsultas()
+        {
+            try
+            {
+                var consultas = await _consultaService.ListarTodasConsultas();
 
+                if (consultas == null || !consultas.Any())
+                {
+                    return NotFound("Nao foram encontradas consultas.");
+                }
+
+                return Ok(consultas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro ao listar todas as consultas: {ex.Message}");
+            }
+        }
         [HttpPost]
         public async Task<ActionResult<Consulta>> CreateConsultaAsync(AgendarConsultaDTO agendarConsultaDTO)
         {
@@ -60,24 +78,6 @@ namespace ConsultorioAPI.Controllers
             }
         }
 
-        [HttpGet("todas")]
-        public async Task<IActionResult> ListarTodasConsultas()
-        {
-            try
-            {
-                var consultas = await _consultaService.ListarTodasConsultas();
-
-                if (consultas == null || !consultas.Any())
-                {
-                    return NotFound("Nao foram encontradas consultas.");
-                }
-
-                return Ok(consultas);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Erro ao listar todas as consultas: {ex.Message}");
-            }
-        }
+        
     }
 }
